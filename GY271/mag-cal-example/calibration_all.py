@@ -29,7 +29,7 @@ import scipy as sp
 SER_PORT = 'COM3'  # Serial port
 SER_BAUD = 115200  # Serial baud rate
 SAMPLE_FREQ = 15  # Frequency to record magnetometer readings at [Hz]
-T_SAMPLE = 120  # Total time to read mangetometer readings [sec]
+T_SAMPLE = 250  # Total time to read mangetometer readings [sec]
 F0 = 52.991 #magnitude of actual megnetic field in microTesla
 
 OUTPUT_FILENAME = 'D:\intership\GY271\mag-cal-example\examplesmag-readings.txt'  # Output data file name
