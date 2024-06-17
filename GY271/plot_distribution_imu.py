@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 SER_PORT = 'COM3'  # Serial port
 SER_BAUD = 115200  # Serial baud rate
 SAMPLE_FREQ = 50  # Frequency to record magnetometer readings at [Hz]
-T_SAMPLE = 100  # Total time to read mangetometer readings [sec]
+T_SAMPLE = 60  # Total time to read mangetometer readings [sec]
 F0 = 52.991 #magnitude of actual megnetic field in microTesla
 
 class SerialPort:
@@ -114,7 +114,7 @@ for currMeas in range(N):
     measurements[currMeas, 4] = gy
     measurements[currMeas, 5] = gz
 # Calculate the mean of each cluster
-cluster_bias = np.array([np.mean(measurements[i:i+100, 5]) for i in range(0, N, 100)])
+cluster_bias = np.array([np.mean(measurements[i:i+50, 5]) for i in range(0, N, 50)])
 print('deviation of bias = %0.4f (in degree)' % (np.std(cluster_bias)))
 
 # probability plot
@@ -128,24 +128,24 @@ print('yaw rate: mean = %0.4f, deviation = %0.4f(in degree)' % (measurements[:, 
 fig0, axs0 = plt.subplots(1, 2, figsize=(15, 5))
 # for roll
 axs0[0].hist(angle_roll, bins=100, density=True)
-axs0[0].set_xlabel('Data Value')
-axs0[0].set_ylabel('Probability')
-axs0[0].set_title(f'Probability Distribution of angle roll' )
+axs0[0].set_xlabel('angle roll [degree]')
+axs0[0].set_ylabel('Density')
+axs0[0].set_title(f'Probability Distribution of angle roll from acce' )
     
 # for pitch
 axs0[1].hist(angle_pitch, bins=100, density=True)
-axs0[1].set_xlabel('Data Value')
-axs0[1].set_ylabel('Probability')
-axs0[1].set_title(f'Probability Distribution of angle pitch' )
+axs0[1].set_xlabel('angle pitch [degree]')
+axs0[1].set_ylabel('Density')
+axs0[1].set_title(f'Probability Distribution of angle pitch from acce' )
 # Adjust the spacing between subplots
 plt.subplots_adjust(hspace=0.5)
 
 fig, axs = plt.subplots(1, 3, figsize=(15, 5))
 for fig_num in range (3,6):
     axs[fig_num-3].hist(measurements[:, fig_num], bins=100, density=True)
-    axs[fig_num-3].set_xlabel('Data Value')
-    axs[fig_num-3].set_ylabel('Probability')
-    axs[fig_num-3].set_title(f'Probability Distribution {fig_num}' )
+    axs[fig_num-3].set_xlabel('rate[degree/s]')
+    axs[fig_num-3].set_ylabel('Density')
+    axs[fig_num-3].set_title(f'Probability Distribution of rate {fig_num}' )
 # Adjust the spacing between subplots
 plt.subplots_adjust(hspace=0.5)
 

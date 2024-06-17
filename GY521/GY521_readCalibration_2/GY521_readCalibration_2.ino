@@ -1,8 +1,4 @@
-//
-//    FILE: readCalibration_2.ino
-//  AUTHOR: Rob Tillaart
-// PURPOSE: read the calibration values / errors for a flat sensor.
-//     URL: https://github.com/RobTillaart/GY521
+
 
 #include "GY521.h"
 
@@ -45,12 +41,16 @@ void setup()
   Serial.println("\n\nReading calibration numbers...");
 }
 
-
+float thres_hold = 0; // in degree
+float sigma_z = 0;
+float rate_z = 0;
 void loop()
 {
   ax = ay = az = 0;
   gx = gy = gz = 0;
   t = 0;
+  thres_hold = 0;
+  sigma_z = 0;
   for (int i = 0; i < 1000; i++)
   {
     sensor.read();
@@ -61,6 +61,8 @@ void loop()
     gy -= sensor.getGyroY();
     gz -= sensor.getGyroZ();
     t += sensor.getTemperature();
+    rate_z = sensor.getGyroZ();
+    sigma_z = sigma_z + rate_z * rate_z;  
   }
 
   if (counter % 10 == 0)
@@ -120,6 +122,9 @@ void loop()
   sensor.gxe += gx * 0.001;
   sensor.gye += gy * 0.001;
   sensor.gze += gz * 0.001;
+  thres_hold = sqrt((sigma_z/1000) - sensor.gze * sensor.gze);
+  Serial.print('thres hold');
+  Serial.println(sigma_z);
 
   counter++;
 

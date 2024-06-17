@@ -62,7 +62,7 @@ void setup()
   // 15.00Hz: HMC5883L_DATARATE_15HZ (default)
   // 30.00Hz: HMC5883L_DATARATE_30HZ
   // 75.00Hz: HMC5883L_DATARATE_75HZ
-  compass.setDataRate(HMC5883L_DATARATE_15HZ);
+  compass.setDataRate(HMC5883L_DATARATE_75HZ);
 
   // Set number of samples averaged
   // 1 sample:  HMC5883L_SAMPLES_1 (default)

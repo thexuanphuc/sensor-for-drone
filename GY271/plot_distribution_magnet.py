@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 # GLOBAL VARIABLES
 SER_PORT = 'COM3'  # Serial port
 SER_BAUD = 115200  # Serial baud rate
-SAMPLE_FREQ = 50  # Frequency to record magnetometer readings at [Hz]
-T_SAMPLE = 120  # Total time to read mangetometer readings [sec]
+SAMPLE_FREQ = 75  # Frequency to record magnetometer readings at [Hz]
+T_SAMPLE = 50  # Total time to read mangetometer readings [sec]
 F0 = 52.991 #magnitude of actual megnetic field in microTesla
 
 
@@ -113,11 +113,11 @@ for currMeas in range(N):
     measurements[currMeas, 2] = mz
     
 # calibration
-A = np.array([  [1.1180947 , 0.00760405, 0.03886638],
-                [0.00760405, 1.12722608, 0.0049638 ],
-                [0.03886638, 0.0049638 , 1.11248237]])
+A = np.array([  [1.09745885,  0.00531246,  0.03279459],
+                [0.00531246,  1.09457112, -0.02298825],
+                [0.03279459, -0.02298825,  1.17092349]])
 
-b = np.array([-4.98677796 , 2.38519419, 14.97449162])
+b = np.array([-9.14714356, 13.06060926,  2.62056838])
 # b = np.zeros([3, 1])
 # A = np.eye(3)
 

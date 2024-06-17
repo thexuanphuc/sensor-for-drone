@@ -10,9 +10,9 @@ float pre_roll_k = 0;
 float pre_pitch_k = 0;
 float rate_filted = 0;
 const float MAGNETO_COV = 1.1113;
-const float GYROS_RATE_COV = 0.4;// static covariance is 0.04
-const float GYROS_MEAN_COV = 0.01;// static covariance is 0.0001
-const float BIAS_GYROS = -0.007;
+const float GYROS_RATE_COV = 0.04;// static covariance is 0.04
+const float GYROS_MEAN_COV = 0.001;// static covariance is 0.0001
+const float BIAS_GYROS = 0;
 // const float MAGNETO_COV = 1.2769;
 
 float yaw_magnetic_init = 0;

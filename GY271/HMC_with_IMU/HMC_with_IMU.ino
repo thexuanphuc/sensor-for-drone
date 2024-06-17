@@ -64,12 +64,12 @@ void setup() {
   // Serial.println("start...");
 
   //  set calibration values from calibration sketch.
-  sensor.axe = -0.050081543;
-  sensor.aye = 0.007971925;
-  sensor.aze = 0.061343741;
-  sensor.gxe = 2.558282375;
-  sensor.gye = -1.817236709;
-  sensor.gze = 1.352961778;
+  sensor.axe = -0.038852785;
+  sensor.aye = -0.015031495;
+  sensor.aze = 0.060424323;
+  sensor.gxe = 1.509328269;
+  sensor.gye = 1.429954147;
+  sensor.gze = 1.514259576;
 
   last_micro = 0.0;
   while (!compass.begin())
@@ -209,9 +209,9 @@ void _3dkalman(float* Xk , float (*Pk)[3],float duration, float rate, float meas
   Xk[2] = duration*Xk[0] + Xk[2];
   Xk[0] = Xk[1] + rate; //this is the next step n+1, but actually the angle we get from magnet in measurement step is next step too
 
-  if(Xk[2] >= 360){
+  if(Xk[2] >= 180){
     Xk[2] = Xk[2] - 360.0;
-  } else if(Xk[2] <= -360){
+  } else if(Xk[2] <= -180){
     Xk[2] = Xk[2] + 360.0;
   }
   Serial.print(Xk[0]);
@@ -232,6 +232,11 @@ void _3dkalman(float* Xk , float (*Pk)[3],float duration, float rate, float meas
 
   // measurement step
   float delta_y = measured_angle - Xk[2];
+  if(delta_y >= 180){
+    delta_y = delta_y - 360.0;
+  } else if(delta_y <= -180){
+    delta_y = delta_y + 360.0;
+  }
   float S = 1/(P_tem[2][2] + MAGNETO_COV);
 
   float Kk[3] = {0, 0, 0};
